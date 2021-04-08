@@ -12,6 +12,14 @@ githubTokenSource := TokenSource.Or(TokenSource.Environment("GITHUB_TOKEN"), Tok
 publishConfiguration := publishConfiguration.value.withOverwrite(true)
 publishLocalConfiguration := publishLocalConfiguration.value.withOverwrite(true)
 
+credentials +=
+  Credentials(
+    "GitHub Package Registry",
+    "maven.pkg.github.com",
+    "safe2008",
+    sys.env.getOrElse("GITHUB_TOKEN", "N/A")
+  )
+
 lazy val root = (project in file("."))
   .settings(
     libraryDependencies += scalaTest % Test
